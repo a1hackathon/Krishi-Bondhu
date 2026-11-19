@@ -1,0 +1,54 @@
+Product Requirements
+
+Product Overview
+----------------
+X is a digital platform designed to support farmers' development and promote sustainable agriculture. It guides farmers toward more efficient farming practices and helps build a knowledgeable, connected agricultural community that contributes to the country's growth.
+
+Core Features
+-------------
+- AI-powered farm planning to help farmers make informed decisions and organize their farming activities.
+- Crop and livestock monitoring, including timely reminders about actions needed to support healthy growth.
+- Personalized educational guidance that helps farmers improve their practices, learn about modern tools, and make better decisions.
+- A 24/7 AI advisory service for questions and problems related to crops, vegetables, and livestock. The service can assess current conditions and provide actionable recommendations and plans.
+- A farmer community where farmers can connect, share challenges, and support one another.
+- In-person consultation and practical assistance from officially recruited and verified agricultural experts.
+- Account sign-in that allows farmers to access and continue using the service across devices.
+- Local emergency alerts that help farmers take preventive action and reduce potential losses.
+
+User Roles
+----------
+
+Farmer
+- The primary user of X.
+- Views a farm overview and tracks the condition of individual crops.
+- Creates and manages tasks for upcoming farm activities.
+- Learns and plans using AI-generated recommendations.
+- Connects with other farmers and participates in the community by responding to posts and offering support.
+- Books appointments with agricultural experts.
+- Requests AI assistance using text or images.
+
+Officer
+- A government-recruited agricultural officer or qualified expert who provides support to farmers in a local area.
+- Joins X after submitting official documentation and completing verification.
+- Receives and confirms consultation appointment requests.
+- Reviews farmer ratings of their services to maintain and improve service quality.
+- Issues alerts about emerging agricultural problems and informs farmers about new services, such as newly available government-provided agricultural supplies.
+
+Administrator
+- Verifies and manages user accounts.
+- Reviews and confirms alerts submitted by experts before publishing them in the app.
+- Monitors the farmer community and takes action when necessary.
+- Reviews farmer feedback and service summaries to ensure the platform is used appropriately and operates effectively.
+- Views user counts and other platform summary reports.
+
+Role of AI
+----------
+- Monitors weather and other relevant conditions, then provides farmers with timely information, recommendations, and warnings to support healthy crop growth.
+- Generates recommendations based on the farm's current state, location, date, season, and other relevant factors.
+- Provides relevant learning materials about agriculture, tools, finance, and related topics. Content should use clear language and may include images to support visual learning.
+- Presents an overview of the farm's current state in the Home section.
+- Answers both suggested and farmer-submitted questions in the dedicated AI section.
+
+Languages
+---------
+X supports English and Bangla. Bangla wording should be selected with care to ensure a natural, comfortable experience, particularly for farmers who may be unfamiliar with highly formal or overly literal translations.

@@ -1,0 +1,95 @@
+Technology Stack and Project Instructions
+==========================================
+
+Purpose
+-------
+Build X as a responsive, bilingual (English and Bangla) web application for farmers, agricultural experts, and administrators.
+
+The choices in this document are intended to remain the project's foundation as it grows. Do not replace the framework or introduce competing frameworks as the product expands. Add capabilities within this stack and its established architecture.
+
+Technology Stack
+----------------
+- Language: TypeScript, with strict compiler settings.
+- Web application: Next.js using the App Router and React.
+- UI components: shadcn/ui components, built on Radix UI primitives.
+- Styling: Tailwind CSS, using design tokens and CSS variables.
+- Icons: lucide-react, used consistently.
+- Forms and validation: React Hook Form with Zod schemas.
+- Server-side API: Next.js Route Handlers, organized as versioned REST endpoints and documented with OpenAPI. Keep business logic in framework-independent server modules so it can be reused by future services if needed.
+- Database: PostgreSQL.
+- Database access and migrations: Prisma ORM and Prisma Migrate.
+- Scheduled jobs: Vercel Cron Jobs for short, bounded scheduled tasks that can safely run as Vercel Functions. For durable queues or long-running background work, select a compatible queue/worker service when needed; do not run a persistent BullMQ worker inside a Vercel Function.
+- Automated API and schema validation: Zod where appropriate; keep shared request/response types in a shared package and derive or verify them against the API contract.
+- Package manager: pnpm. Start with a single Next.js application and shared packages only when code reuse warrants them. Use pnpm workspaces and Turborepo if the repository grows to multiple deployable apps or packages.
+- Testing tools: Vitest for unit and component tests, and Playwright for browser-based end-to-end tests.
+- Deployment: Vercel is the required platform for the Next.js application. Connect the project to its Git repository for preview and production deployments. Use Vercel Functions for server-side routes and environment variables for configuration. Store PostgreSQL in a managed provider that supports standard PostgreSQL connections and deploy it near the Vercel Functions. Do not require Docker to deploy the web application.
+
+Use current stable, mutually compatible releases when the project is created. Pin dependency versions through the package manager lockfile. Do not add a second framework or an alternative library for a capability already covered by this stack without a concrete requirement.
+
+UI and Component Rules
+----------------------
+1. Use shadcn/ui as the only component library for interface widgets.
+2. Build screens from shadcn/ui components and project components composed from shadcn/ui. Do not add another UI kit or import ready-made widgets from a competing component framework.
+3. If a required widget is not available in shadcn/ui, first check whether an appropriate Radix UI primitive can support it. If not, implement the smallest project-owned component that fits the existing design tokens and accessibility requirements. Document the exception and its reason.
+4. Do not introduce a third-party map widget. Maps are out of scope for the initial product.
+5. Use lucide-react for interface icons. Avoid emoji and mixed icon sets in the product UI.
+6. Make layouts responsive and mobile-first, even though a separate mobile application is not currently required. Ensure important tasks work on narrow screens and desktop.
+7. Use semantic HTML, keyboard-accessible controls, visible focus states, and accessible labels. Support reduced-motion preferences.
+
+Color, Theme, and Visual Consistency
+------------------------------------
+- Define a small, intentional design system using shadcn/ui CSS variables and semantic tokens. Components must use tokens rather than arbitrary color values.
+- Primary brand color: green. Choose and document a green palette with accessible foreground contrast.
+- Light theme: use a warm off-white or similarly soft neutral page background, with clear surface and border distinctions.
+- Dark theme: provide a complete, legible dark palette. Do not simply invert the light theme.
+- Support both light and dark modes, with a theme toggle and persisted preference. Respect the operating-system preference on first use unless the user has already selected a theme.
+- Define semantic colors for success, warning, destructive/error, and informational states. Use them only for their semantic purpose. Do not assign decorative colors randomly across components.
+- Keep color definitions centralized in the theme tokens. Do not hard-code one-off colors in individual screens or components.
+- Check contrast in both themes, including muted text, borders, charts, badges, and focus indicators.
+
+Typography and Local Assets
+---------------------------
+- Host all fonts in the project. Do not load fonts from Google Fonts, a CDN, or another external font service at runtime.
+- Keep the font family count to a minimum. Prefer one locally hosted family with Bengali glyph coverage if a single family provides good readability in both scripts. If separate Latin and Bengali families are needed, use at most one family for each script and document the choice.
+- Use Next.js local font support with font files committed to the project or served from the project's static assets. Set sensible fallbacks and verify that Bangla text renders correctly.
+- Do not load external images, scripts, stylesheets, or icon fonts at runtime when a local or self-hosted option is practical. Use optimized project-owned assets where possible.
+- If a third-party hosted service is necessary, make the dependency explicit, keep it limited to the needed capability, and avoid loading unrelated assets from it.
+- Optimize locally hosted images and other static assets for performance and low-bandwidth use.
+
+Localization
+------------
+- Support English and Bangla throughout the interface.
+- Keep all user-facing text in translation resources; do not scatter literal interface strings through components.
+- Use a maintained localization approach compatible with Next.js App Router, and keep locale routing and language selection consistent across the application.
+- Use clear, natural Bangla suitable for farmers. Avoid overly formal or literal translations.
+- Check layouts with real Bangla text, since line length and font metrics can differ from English.
+
+Location
+--------
+- Do not include maps in the initial release.
+- Obtain location only through the browser's Geolocation API after explaining why it is needed and requesting the user's permission.
+- Never request location automatically on page load. Provide a clear user action to enable or refresh location.
+- Handle denied permission, unavailable location, timeout, and unsupported browsers gracefully. Allow the user to continue using the product and, where needed, enter a location manually.
+- Request only the precision needed for the feature. Do not retain or transmit coordinates unless a product feature requires it and the user has been informed.
+- Do not use an external geocoding or map service unless a later, specific product requirement justifies it.
+
+Architecture and Engineering Rules
+----------------------------------
+- Keep UI, API routes, and domain/application modules clearly separated within the Next.js codebase. Keep domain logic independent of Next.js request and response objects. Add shared packages or deployable services only when a concrete need appears.
+- Keep business rules in server-side domain/application modules rather than duplicating them in pages or UI components.
+- Validate all external input at API boundaries. Enforce authentication and role-based authorization on the server; hiding a control in the UI is not authorization.
+- Keep API contracts documented and versioned. Avoid coupling the web application directly to database models.
+- Use PostgreSQL migrations for schema changes. Do not make production schema changes by editing a live database manually.
+- Store secrets in environment variables or a deployment secret manager. Never commit credentials or private keys.
+- Keep environment-specific settings out of source code. Provide a documented example environment file containing placeholders only.
+- Use structured application logging and expose an application health endpoint. Keep Vercel Function execution bounded and stateless; persist durable state in PostgreSQL or an appropriate managed service.
+- Keep dependencies and static assets local to the project when practical. Prefer self-hosted assets and services the team controls; do not make runtime requests to external CDNs for fonts, scripts, styles, or icons.
+- Design reminders and alerts so delivery can move to scheduled or queued work without delaying ordinary requests. Use Vercel Cron for simple schedules; adopt a durable queue and separately hosted worker only when delivery volume or job duration requires it.
+- Build for progressive enhancement and graceful operation on slower connections. Avoid making large client-side bundles a requirement for basic reading and navigation.
+
+Initial Scope Notes
+-------------------
+- The website is the sole required client for the initial release.
+- Do not add Android packaging, maps, or geocoding until a specific product requirement calls for them.
+- Do not add Redis, a persistent worker, or queue infrastructure until a real workload requires it. For scheduled work, first consider Vercel Cron and its function execution limits.
+- Keep the stack stable; scale within Next.js, Vercel, PostgreSQL, and the established module boundaries. Add separately deployed services only when a workload exceeds Vercel Function constraints.

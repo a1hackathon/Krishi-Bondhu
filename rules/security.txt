@@ -1,0 +1,22 @@
+Make sure these problems don't occur
+- In inspect section, everything the browser loads, it can be read
+- By searching a keyword (ex. KEY) in inspect section, they can get access to API keys
+- No row level security in database
+- Open one url and change address and load another's data (ex. changing plan.app/invoice/123 to plan.app/invoice/124 opens another user's invoice) or account (by putting /admin in url, admin account opens)
+- No signup limit cause large number of bot/free accounts to get bonus
+- Payment webhook doesn't check signatures, so sending fake payment succeeded unlocks free pro plan or something similar
+
+And do this must before going live
+- Give it a real login and hash every password
+- Keep my API keys on the server, never in the browser
+- Lock the database, so people only see their own data
+- Force HTTPS everywhere and check every form on the server, not just on the page
+- Block XSS and use safe queries, so nobody can sneak in SQL
+- Rate limit the login and add CSRF protection
+- Make my session cookies secure and make password reset links expire
+- Limit what files people can upload
+- Lock the admin pages and recheck every price on the server
+- Turn off debug mode
+- Update the risky packages and delete the ones I don't use
+- Scan my git history for leaked keys and replace any you find
+- Test every fix and send me a report

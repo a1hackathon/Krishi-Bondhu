@@ -1,0 +1,28 @@
+// Prisma schema for X. Migrations live in prisma/migrations and are applied with `prisma migrate`.
+// Business rules belong in src/server modules; this file only describes storage.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  FARMER
+  OFFICER
+  ADMIN
+}
+
+model User {
+  id          String   @id @default(uuid()) @db.Uuid
+  phoneNumber String   @unique @db.VarChar(20)
+  role        UserRole
+  fullName    String   @db.VarChar(120)
+  createdAt   DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt   DateTime @updatedAt @db.Timestamptz(6)
+
+  @@map("users")
+}

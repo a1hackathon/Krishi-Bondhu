@@ -1,0 +1,30 @@
+{
+  "app": {
+    "name": "X",
+    "description": "Smart farming support for farmers, officers and administrators."
+  },
+  "home": {
+    "title": "Welcome to X",
+    "description": "Keep your farm, crops and livestock in one place."
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "bn": "বাংলা",
+    "switchTo": "Switch language to {language}"
+  },
+  "theme": {
+    "switchToLight": "Switch to light theme",
+    "switchToDark": "Switch to dark theme"
+  },
+  "location": {
+    "division": "Division",
+    "district": "District",
+    "upazila": "Upazila",
+    "area": "Area",
+    "selectDivision": "Select division",
+    "selectDistrict": "Select district",
+    "selectUpazila": "Select upazila",
+    "selectArea": "Select area"
+  }
+}

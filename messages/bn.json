@@ -1,0 +1,30 @@
+{
+  "app": {
+    "name": "X",
+    "description": "কৃষক, কর্মকর্তা ও প্রশাসকদের জন্য স্মার্ট কৃষি সহায়তা।"
+  },
+  "home": {
+    "title": "X-এ স্বাগতম",
+    "description": "আপনার খামার, ফসল ও পশুসম্পদ এক জায়গায় রাখুন।"
+  },
+  "language": {
+    "label": "ভাষা",
+    "en": "English",
+    "bn": "বাংলা",
+    "switchTo": "{language}-এ ভাষা পরিবর্তন করুন"
+  },
+  "theme": {
+    "switchToLight": "হালকা থিমে যান",
+    "switchToDark": "গাঢ় থিমে যান"
+  },
+  "location": {
+    "division": "বিভাগ",
+    "district": "জেলা",
+    "upazila": "উপজেলা",
+    "area": "এলাকা",
+    "selectDivision": "বিভাগ নির্বাচন করুন",
+    "selectDistrict": "জেলা নির্বাচন করুন",
+    "selectUpazila": "উপজেলা নির্বাচন করুন",
+    "selectArea": "এলাকা নির্বাচন করুন"
+  }
+}

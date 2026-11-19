@@ -1,0 +1,2 @@
+When opening the app or site, if a login session is active, <ScreenHome> is shown. Otherwise <ScreenLogin> is shown.
+
