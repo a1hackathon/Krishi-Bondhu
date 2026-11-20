@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import {
   Select,
@@ -29,16 +29,16 @@ type Props = {
   districts: District[];
   upazilas: Upazila[];
   areas: Area[];
+  selection: LocationSelection;
+  onChange: (selection: LocationSelection) => void;
 };
 
+export type LocationSelection = { divisionId: string; districtId: string; upazilaId: string; areaId: string };
+
 // Four dependent dropdowns: each choice filters the next and clears everything below it.
-export function LocationPicker({ divisions, districts, upazilas, areas }: Props) {
+export function LocationPicker({ divisions, districts, upazilas, areas, selection, onChange }: Props) {
   const locale = useLocale();
   const t = useTranslations("location");
-  const [divisionId, setDivisionId] = useState("");
-  const [districtId, setDistrictId] = useState("");
-  const [upazilaId, setUpazilaId] = useState("");
-  const [areaId, setAreaId] = useState("");
 
   const sortedDivisions = useMemo(
     () => sortByName(divisions, locale),
@@ -48,28 +48,28 @@ export function LocationPicker({ divisions, districts, upazilas, areas }: Props)
   const visibleDistricts = useMemo(
     () =>
       sortByName(
-        districts.filter((d) => String(d.divisionId) === divisionId),
+        districts.filter((d) => String(d.divisionId) === selection.divisionId),
         locale
       ),
-    [districts, divisionId, locale]
+    [districts, selection.divisionId, locale]
   );
 
   const visibleUpazilas = useMemo(
     () =>
       sortByName(
-        upazilas.filter((u) => String(u.districtId) === districtId),
+        upazilas.filter((u) => String(u.districtId) === selection.districtId),
         locale
       ),
-    [upazilas, districtId, locale]
+    [upazilas, selection.districtId, locale]
   );
 
   const visibleAreas = useMemo(
     () =>
       sortByName(
-        areas.filter((a) => String(a.upazilaId) === upazilaId),
+        areas.filter((a) => String(a.upazilaId) === selection.upazilaId),
         locale
       ),
-    [areas, upazilaId, locale]
+    [areas, selection.upazilaId, locale]
   );
 
   return (
@@ -77,12 +77,9 @@ export function LocationPicker({ divisions, districts, upazilas, areas }: Props)
       <div className="flex flex-col gap-1.5">
         <span className="text-sm font-medium">{t("division")}</span>
         <Select
-          value={divisionId}
+          value={selection.divisionId}
           onValueChange={(value) => {
-            setDivisionId(value);
-            setDistrictId("");
-            setUpazilaId("");
-            setAreaId("");
+            onChange({ divisionId: value, districtId: "", upazilaId: "", areaId: "" });
           }}
         >
           <SelectTrigger aria-label={t("division")}>
@@ -101,12 +98,10 @@ export function LocationPicker({ divisions, districts, upazilas, areas }: Props)
       <div className="flex flex-col gap-1.5">
         <span className="text-sm font-medium">{t("district")}</span>
         <Select
-          value={districtId}
-          disabled={!divisionId}
+          value={selection.districtId}
+          disabled={!selection.divisionId}
           onValueChange={(value) => {
-            setDistrictId(value);
-            setUpazilaId("");
-            setAreaId("");
+            onChange({ ...selection, districtId: value, upazilaId: "", areaId: "" });
           }}
         >
           <SelectTrigger aria-label={t("district")}>
@@ -125,11 +120,10 @@ export function LocationPicker({ divisions, districts, upazilas, areas }: Props)
       <div className="flex flex-col gap-1.5">
         <span className="text-sm font-medium">{t("upazila")}</span>
         <Select
-          value={upazilaId}
-          disabled={!districtId}
+          value={selection.upazilaId}
+          disabled={!selection.districtId}
           onValueChange={(value) => {
-            setUpazilaId(value);
-            setAreaId("");
+            onChange({ ...selection, upazilaId: value, areaId: "" });
           }}
         >
           <SelectTrigger aria-label={t("upazila")}>
@@ -148,9 +142,9 @@ export function LocationPicker({ divisions, districts, upazilas, areas }: Props)
       <div className="flex flex-col gap-1.5">
         <span className="text-sm font-medium">{t("area")}</span>
         <Select
-          value={areaId}
-          disabled={!upazilaId}
-          onValueChange={setAreaId}
+          value={selection.areaId}
+          disabled={!selection.upazilaId}
+          onValueChange={(value) => onChange({ ...selection, areaId: value })}
         >
           <SelectTrigger aria-label={t("area")}>
             <SelectValue placeholder={t("selectArea")} />
@@ -164,6 +158,9 @@ export function LocationPicker({ divisions, districts, upazilas, areas }: Props)
           </SelectContent>
         </Select>
       </div>
+      {selection.upazilaId && visibleAreas.length === 0 && (
+        <p className="text-xs text-muted-foreground sm:col-span-2">{t("noAreasForUpazila")}</p>
+      )}
     </div>
   );
 }

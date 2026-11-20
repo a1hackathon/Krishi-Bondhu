@@ -1,10 +1,10 @@
 {
   "app": {
-    "name": "X",
+    "name": "Krishi Bondhu",
     "description": "Smart farming support for farmers, officers and administrators."
   },
   "home": {
-    "title": "Welcome to X",
+    "title": "Welcome to Krishi Bondhu",
     "description": "Keep your farm, crops and livestock in one place."
   },
   "language": {
@@ -25,6 +25,14 @@
     "selectDivision": "Select division",
     "selectDistrict": "Select district",
     "selectUpazila": "Select upazila",
-    "selectArea": "Select area"
+    "selectArea": "Select area",
+    "noAreasForUpazila": "No areas are listed for this Upazila. Selecting the Upazila is enough."
+  },
+  "workspace": {
+    "home": "Home", "suggestions": "Suggestions", "assistant": "AI Assistant", "community": "Community", "consult": "Consult",
+    "farmers": "Farmers", "officers": "Officers", "alerts": "Alerts", "reports": "Reports", "schedule": "Schedule", "messages": "Messages",
+    "openProfile": "Open profile", "profile": "Profile", "close": "Close", "edit": "Edit", "save": "Save", "cancel": "Cancel", "back": "Back",
+    "photo": "Edit profile picture", "photoUnavailable": "Uploading a profile picture is not available in this demo.", "fullName": "Full name", "firstName": "First name", "lastName": "Last name", "phoneNumber": "Phone number", "location": "Location", "setLocation": "Set your location", "notSet": "Not set yet", "editName": "Edit name", "editLocation": "Edit location", "saveLocation": "Save location", "locationHelp": "Choose Division, District, Upazila and an Area when one is available.",
+    "welcome": "Welcome to your workspace", "farmerHome": "Your farm support, tasks and seasonal guidance will appear here.", "officerHome": "Your appointments and farmer support tools will appear here.", "adminHome": "Your platform overview and review queues will appear here.", "comingSoon": "This section is being prepared for a later milestone.", "roleFarmer": "Farmer", "roleOfficer": "Officer", "roleAdmin": "Admin", "logout": "Log out", "profileInitials": "Profile initials", "workspaceNavigation": "Workspace navigation"
   }
 }

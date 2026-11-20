@@ -16,13 +16,62 @@ enum UserRole {
   ADMIN
 }
 
+enum AccountStatus {
+  ACTIVE
+  PENDING_VERIFICATION
+  SUSPENDED
+}
+
 model User {
-  id          String   @id @default(uuid()) @db.Uuid
-  phoneNumber String   @unique @db.VarChar(20)
-  role        UserRole
-  fullName    String   @db.VarChar(120)
-  createdAt   DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt   DateTime @updatedAt @db.Timestamptz(6)
+  id                  String        @id @default(uuid()) @db.Uuid
+  phoneNumber         String        @unique @db.VarChar(20)
+  role                UserRole
+  fullName            String        @db.VarChar(120)
+  passwordHash        String?       @db.VarChar(100)
+  status              AccountStatus @default(ACTIVE)
+  officerVerifiedAt   DateTime?     @db.Timestamptz(6)
+  disabledAt          DateTime?     @db.Timestamptz(6)
+  upazilaId           Int?
+  areaId              Int?
+  createdAt           DateTime      @default(now()) @db.Timestamptz(6)
+  updatedAt           DateTime      @updatedAt @db.Timestamptz(6)
+  sessions            AuthSession[]
+  passwordResetTokens PasswordResetToken[]
 
   @@map("users")
+}
+
+model AuthSession {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  tokenHash String   @unique @db.Char(64)
+  expiresAt DateTime @db.Timestamptz(6)
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, expiresAt])
+  @@map("auth_sessions")
+}
+
+model PasswordResetToken {
+  id        String    @id @default(uuid()) @db.Uuid
+  userId    String    @db.Uuid
+  tokenHash String    @unique @db.Char(64)
+  expiresAt DateTime  @db.Timestamptz(6)
+  usedAt    DateTime? @db.Timestamptz(6)
+  createdAt DateTime  @default(now()) @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, expiresAt])
+  @@map("password_reset_tokens")
+}
+
+model AuthRateLimit {
+  keyHash         String   @id @db.Char(64)
+  windowStartedAt DateTime @db.Timestamptz(6)
+  attempts        Int      @default(0)
+
+  @@map("auth_rate_limits")
 }

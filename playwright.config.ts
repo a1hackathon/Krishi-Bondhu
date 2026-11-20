@@ -20,7 +20,7 @@ export default defineConfig({
   ],
   // Test the production build, which is what Vercel serves.
   webServer: {
-    command: `pnpm build && pnpm start -p ${PORT}`,
+    command: `pnpm exec prisma generate && pnpm exec next build --webpack && pnpm start -p ${PORT}`,
     // Wait for the port, not an HTTP URL: the HTTPS redirect would answer a plain readiness probe with 308.
     port: PORT,
     reuseExistingServer: !process.env.CI,
