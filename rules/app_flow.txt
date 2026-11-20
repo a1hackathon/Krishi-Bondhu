@@ -3,6 +3,13 @@
 - Mobile view is given, desktop view is to be generated keeping similarity with mobile view
 - In mobile view, top and bottom app bar doesn't get replaced by anything. only the center window view is changed. for top app bar, title of the window and other info is to be changed according to the window requirements.
 - In mobile view, app sections are divided into 2 sections: Top and bottom app bar. In desktop view, bottom app bar contents might be shifted to top or left app bar panel.
+- Top app bar has profile section on the right, clicking it will open profile window. Profile window has logout option at the end. Profile picture is not available in the demo. First letter of First name and last name will have to be combined and showed as profile picture. Common profile window contents:
+	1. Profile picture
+	2. Full Name
+	-------------------
+	(Cards)
+	3. Phone Number
+	4. Location (at the right is a edit icon for edit) (opens location picker)
 
 Farmer
 -------
@@ -27,3 +34,7 @@ AI assistant section is for help with custom prompts. It contains some pre sugge
 Community section is where a farmer can see other farmers problems or situations and share their own problems and situations. It is kind of twitter platform, but simpler. Active task: post (text and optional image), passive: like, comment, askAI and report. there's no follow or add friend or share or copy link options. Top of the post contains the ID of the farmer or officer (if the post owner is an officer or expert, beside name "Expert" label is shown), clicking the profile shows a small dialog containing profile picture, name, phone number. Rough structure is in /rules/ui/farmer/community.txt).
 
 Consult section is where farmer can book for expert's advice. At the top, if an meeting appointment is today, then it's shown on top with necessary details. Rough structure is in /rules/ui/farmer/expert.txt).
+
+Profile section for farmer additionally contains tasks, appointments, posts, costs, crops etc.
+
+
