@@ -1,0 +1,66 @@
+Interface: Community
+
+Mobile View:
+    Top App Bar:
+        Left content:
+            Label: "Community"
+            
+        Right content:
+            Label: User Name
+            Label: phone number under the Name label
+            IconButton: icon of the user beside name and phone number label
+                action: take to menu
+
+    Main View:
+        Horizontal Content:
+            Button: 
+                icon: plus with circle outline
+                action: open new question window
+            IconButton: 
+                icon: bell
+                action: open notifications floating window
+
+        # Post Feed
+        List: 
+            orientation: vertical
+            Card:
+                Top content:
+                    Icon: user's initial or photo
+                    Label: Name (+ "Expert" badge for verified agriculture officers)
+                    Label: time (ex. "2 hours")
+                
+                Middle content:
+                    Label: Post text
+                    Image: photo (optional)
+                Bottom content:
+                    IconButton: 
+                        icon: thumbs up 
+                        action: increase like count
+                    IconButton: 
+                        icon: comment 
+                        text: count comment 
+                        action: open comment bottomSheet for the post
+                    IconButton: 
+                        icon: AI icon
+                        text: ask AI
+                        action: take to Krishi ai window with the post as context
+    Bottom App Bar:
+         IconButton:
+            icon: home
+            text: "Home"
+
+        IconButton:
+            icon: bulb with lines emitting
+            text: Suggestions
+                
+        IconButton:
+            icon: ai icon
+            text: "Krishi AI"
+        
+        IconButton:
+            icon: group
+            text: "Community"
+            
+        IconButton:
+            icon: sthethoscope
+            text: "Consult"

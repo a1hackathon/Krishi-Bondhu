@@ -2,7 +2,7 @@ Product Requirements
 
 Product Overview
 ----------------
-X is a digital platform designed to support farmers' development and promote sustainable agriculture. It guides farmers toward more efficient farming practices and helps build a knowledgeable, connected agricultural community that contributes to the country's growth.
+Krishi Bondhu is a digital platform designed to support farmers' development and promote sustainable agriculture. It guides farmers toward more efficient farming practices and helps build a knowledgeable, connected agricultural community that contributes to the country's growth.
 
 Core Features
 -------------
@@ -11,7 +11,7 @@ Core Features
 - Personalized educational guidance that helps farmers improve their practices, learn about modern tools, and make better decisions.
 - A 24/7 AI advisory service for questions and problems related to crops, vegetables, and livestock. The service can assess current conditions and provide actionable recommendations and plans.
 - A farmer community where farmers can connect, share challenges, and support one another.
-- In-person consultation and practical assistance from officially recruited and verified agricultural experts.
+- In-person consultation and practical assistance from officially recruited and verified agricultural eKrishi Bondhuperts.
 - Account sign-in that allows farmers to access and continue using the service across devices.
 - Local emergency alerts that help farmers take preventive action and reduce potential losses.
 
@@ -19,24 +19,24 @@ User Roles
 ----------
 
 Farmer
-- The primary user of X.
+- The primary user of Krishi Bondhu.
 - Views a farm overview and tracks the condition of individual crops.
 - Creates and manages tasks for upcoming farm activities.
 - Learns and plans using AI-generated recommendations.
 - Connects with other farmers and participates in the community by responding to posts and offering support.
-- Books appointments with agricultural experts.
-- Requests AI assistance using text or images.
+- Books appointments with agricultural eKrishi Bondhuperts.
+- Requests AI assistance using teKrishi Bondhut or images.
 
 Officer
-- A government-recruited agricultural officer or qualified expert who provides support to farmers in a local area.
-- Joins X after submitting official documentation and completing verification.
+- A government-recruited agricultural officer or qualified eKrishi Bondhupert who provides support to farmers in a local area.
+- Joins Krishi Bondhu after submitting official documentation and completing verification.
 - Receives and confirms consultation appointment requests.
 - Reviews farmer ratings of their services to maintain and improve service quality.
 - Issues alerts about emerging agricultural problems and informs farmers about new services, such as newly available government-provided agricultural supplies.
 
 Administrator
 - Verifies and manages user accounts.
-- Reviews and confirms alerts submitted by experts before publishing them in the app.
+- Reviews and confirms alerts submitted by eKrishi Bondhuperts before publishing them in the app.
 - Monitors the farmer community and takes action when necessary.
 - Reviews farmer feedback and service summaries to ensure the platform is used appropriately and operates effectively.
 - Views user counts and other platform summary reports.
@@ -51,4 +51,4 @@ Role of AI
 
 Languages
 ---------
-X supports English and Bangla. Bangla wording should be selected with care to ensure a natural, comfortable experience, particularly for farmers who may be unfamiliar with highly formal or overly literal translations.
+Krishi Bondhu supports English and Bangla. Bangla wording should be selected with care to ensure a natural, comfortable eKrishi Bondhuperience, particularly for farmers who may be unfamiliar with highly formal or overly literal translations.

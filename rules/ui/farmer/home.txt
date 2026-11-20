@@ -1,0 +1,137 @@
+Interface: Home
+
+Mobile View:
+    Top App Bar:
+        Left content:
+            Label: "Home"
+            
+        Right content:
+            Label: User Name
+            Label: phone number under the Name label
+            IconButton: icon of the user beside name and phone number label
+                action: take to menu
+
+    Main View:
+        
+        
+        # Alert (only appears when there's an alert)
+        Card:
+            Left content:
+                Label: Main title
+                Label: Short description about the alert
+            Right Content:
+                Button:
+                    text: "Show Solution"
+                    icon: right arrow
+                    action: take to alert bottom sheet widget
+        Card:
+            Label: Weather info (relevant current weather based icon, current temperature, and additional info (ex. possibility of rain or other weather attributes))
+
+        # To-Do
+        Card:
+            Left content:
+                Label: Tasks to do
+                Badge:
+                    text: (task completed / total amount of task) completed
+            Right content:
+                IconButton:
+                    icon: plus with circle outline
+                    icon direction: left
+                    text: "New"
+                    action: open new task dialog
+
+            List:
+                Card:
+                    Left content:
+                        Label: Task title
+                    Right Content:
+                        Checkbox: (to mark when the task is accomplished)
+
+        # Cashflow
+        # 2 sections
+        Card:
+            Left content:
+                Label:
+                    text: "Cashflow"
+
+            Right content:
+                IconButton:
+                    icon: plus with round circle outline
+                    icon-direction: left
+                    text: "New"
+                    action: open new cost dialog
+
+            Left Content:
+                Card:
+                    Left Content:
+                        Label: "Total Cost"
+                        Label: Amount
+                    Right Content (bottom):
+                        Button:
+                            text: "See details"
+                            icon: "right arrow"
+                            action: open cost related bottom sheet
+                
+            Right Content:
+                Card:
+                    Left Content:
+                        Label: "Income"
+                        Label: Amount
+                Card:
+                    Left Content:
+                        Label: "Net Profit"
+                        Label: Amount
+                    Right Content:
+                        Icon: up or down arrow (based on profit or loss)
+
+                Card:
+                    Left Content:
+                        Label: "Cultivated Land"
+                        Label: Amount {unit (in small font)}
+
+        # Crop Monitoring
+        Card:
+            Left content:
+                Label: "Crop Monitoring"
+            Right content:
+                IconButton:
+                    icon: plus with circle outline
+                    icon-direction: left
+                    text: "New"
+                    action: open new plan dialog
+    
+            Card:
+                Left Content:
+                    Label: Name of the crop / vegetable / livestock
+
+                    Progressbar: (only shows current stage to next stage with previous and further milestones are blurred) (for example: there's 4 milestones A, B, C, D, and B has just been crossed, so it's between B and C, so progressbar will look __O=====---O__ where is O is checkpoints, under which B and C label is put)
+
+                Right Content:
+                    Label: days passed / total days
+                
+                    IconButton:
+                        text: "See all"
+                        icon: right arrow
+                        icon direction: right
+                        action: open monitoring window
+
+    Bottom App Bar:
+        IconButton:
+            icon: home
+            text: "Home"
+
+        IconButton:
+            icon: bulb with lines emitting
+            text: Suggestions
+                
+        IconButton:
+            icon: ai icon
+            text: "Krishi AI"
+        
+        IconButton:
+            icon: group
+            text: "Community"
+            
+        IconButton:
+            icon: sthethoscope
+            text: "Consult"

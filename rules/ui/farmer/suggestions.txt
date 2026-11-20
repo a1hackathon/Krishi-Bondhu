@@ -1,0 +1,48 @@
+Interface: Suggestions
+
+Mobile View:
+        Top App Bar:
+        Left content:
+            Label: "Suggestions"
+            
+        Right content:
+            Label: User Name
+            Label: phone number under the Name label
+            IconButton: icon of the user beside name and phone number label
+                action: take to menu
+
+    Main View:
+        ScrollView:
+            orientation: vertical
+
+            #list:
+            Card:
+                Badge: (Daily / Weekly / Montly)
+
+                Label (title and description (description is optional)):Generated Suggestions by Ai 
+
+                IconButton:
+                    icon: plus with rounded rectangle outline
+                    action: open new task dialog and fill the input boxes by ai according to respective Suggestion
+      
+    
+    Bottom App Bar:
+       IconButton:
+            icon: home
+            text: "Home"
+
+        IconButton:
+            icon: bulb with lines emitting
+            text: Suggestions
+                
+        IconButton:
+            icon: ai icon
+            text: "Krishi AI"
+        
+        IconButton:
+            icon: group
+            text: "Community"
+            
+        IconButton:
+            icon: sthethoscope
+            text: "Consult"

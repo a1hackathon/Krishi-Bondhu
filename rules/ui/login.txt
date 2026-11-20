@@ -27,7 +27,7 @@ Mobile View is mainly divided into 3 parts.
     paddings (between components): $generated
 
     global_vars: {
-        app_name: "X",
+        app_name: "Krishi Bondhu",
         app_description: $generated,
         admin_access_code: "1234",
         officer_document_bypass_code: "1234"

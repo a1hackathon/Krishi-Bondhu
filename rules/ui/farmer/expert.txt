@@ -1,0 +1,70 @@
+Interface: Consult
+
+Mobile View:
+        
+    Top App Bar:
+        Left content:
+            Label: "Consult"
+            Label: "Talk to an agriculture expert"
+    
+        Right content:
+            Label: User Name
+            Label: phone number under the Name label
+            IconButton: icon of the user beside name and phone number label
+                action: take to menu
+
+    Filter Bar: (horizontal scroll)
+        ChipGroup: "All","Active Now" "Crop doctor", "Soil & fertilizer", "Livestock", "Market advice"
+
+    Main View:
+        # Reminder (only appears when a call is booked)
+        Card:
+            Label: "Reminder"
+            Label: Expert name
+            Label: Date, time, call type/location(for physical meet)
+            label: phone number
+            label: reason to meet
+            Button: "Cancel the meeting"
+       
+        # Experts for You
+        Section Header: "Available Experts"
+        List:
+            Card:
+                Left content:
+                    Icon: expert photo or initial
+                    Label: Name
+                    Label: Role
+                    Label: Specialties
+                Right content:
+                    Label: Fee ("Free" or amount)
+                    Label: Availability
+                Bottom content:
+                    Button: text: "Chat", action: open chat
+                    Button: text: "Book a call", action: open booking sheet
+
+        # Past Consultations
+        Row:
+            Label: "My past consultations"
+            Icon: right arrow
+            action: open history
+
+    Bottom App Bar:
+    IconButton:
+            icon: home
+            text: "Home"
+
+        IconButton:
+            icon: bulb with lines emitting
+            text: Suggestions
+                
+        IconButton:
+            icon: ai icon
+            text: "Krishi AI"
+        
+        IconButton:
+            icon: group
+            text: "Community"
+            
+        IconButton:
+            icon: pressure mapar machine
+            text: "Consult"
