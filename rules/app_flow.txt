@@ -45,9 +45,12 @@ Admin
 Admin contains _ sections.
 	1. Home
 	2. Farmers
-	3. Officers
-	4. Alerts
-	5. Reports
+	3. Officers (has badge indicating remaining verficiation number)
+	4. Alerts (has badge indicating remaining alert confirmation number)
+	5. Reports (has badge indicating remaining process reports number)
 
 Home section contains new {role} joined in {today/last 7 days/last 30 days} info, total consultations, number of verifications remaining, number of consultation traffic in weekdays summary using plot/graph, recent activities (X has submitted papers (n time ago), new Y farmers joined etc) etc.
 
+Farmers and Officers sections contain the list of farmers and officers. But not all are shown. Using location picker, location is to be selected first, and then lazy load is applied on the list. in the right side of list item widget, two buttons are given: "Warn" and "Ban". Warn button opens a dialog for additional message and ban deletes the account. In officers window, above the list, "Verifications required" card is shown with a number badge in right with primary theme widget for main focus. In mobile view, the list item buttons are kept inside menu button which is triggered by clicking 3 dots icon button or "Action" button.
+
+Alerts section contain 
