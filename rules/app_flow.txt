@@ -13,6 +13,8 @@ $generated means AI generated
 	3. Phone Number
 	4. Location (at the right is a edit or chevron-right icon for edit) (opens location picker)
 
+Below is given the center view appoximate structure.
+
 Farmer
 -------
 Farmer has 5 sections.
@@ -53,4 +55,6 @@ Home section contains new {role} joined in {today/last 7 days/last 30 days} info
 
 Farmers and Officers sections contain the list of farmers and officers. But not all are shown. Using location picker, location is to be selected first, and then lazy load is applied on the list. in the right side of list item widget, two buttons are given: "Warn" and "Ban". Warn button opens a dialog for additional message and ban deletes the account. In officers window, above the list, "Verifications required" card is shown with a number badge in right with primary theme widget for main focus. In mobile view, the list item buttons are kept inside menu button which is triggered by clicking 3 dots icon button or "Action" button.
 
-Alerts section contain 
+Alerts section contain the lists (lazy loaded) of all ongoing alerts (the ones that require confirmation appear at first, and then sorted by time). In the list item, confirmed ongoing alerts will have "Done" button at right, and those that require confirmation will have "Confirm" button at right. When the alert time period is finished or admin clicks "Done", it is saved in past alerts list. At the top, a message "{x} alerts need confirmation" and beside it is "+ New alert" button for admin directly issuing an alert, and beside it is "Previous alerts >" button. Below it is location picker which can be used to filter the alert area, but location doesn't need to be selected for initial list load.
+
+Reports section contain the list of reported post by farmers and it 
