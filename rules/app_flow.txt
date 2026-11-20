@@ -13,6 +13,10 @@ $generated means AI generated
 	3. Phone Number
 	4. Location (at the right is a edit or chevron-right icon for edit) (opens location picker)
 
+Location picker / filter
+------------------------
+Location picker consists of 4 dropdowns: Division->District->Upazila->Area. One is connected with another, means if the previous option is not selected, current option doesn't open. When setting location for the account, user has to always choose area. But if area is not available for certain upazila, then they have to select up to upazila. But for filter, no selecting upto upazila or area is not mandatory.
+
 Below is given the center view appoximate structure.
 
 Farmer
