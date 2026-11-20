@@ -1,15 +1,17 @@
+$generated means AI generated
+
 - When opening the app or site, if a login session is active, <ScreenHome> is shown. Otherwise <ScreenLogin> is shown.
 - Until data of the user is loaded, widget skeleton effect is shown.
-- Mobile view is given, desktop view is to be generated keeping similarity with mobile view
-- In mobile view, top and bottom app bar doesn't get replaced by anything. only the center window view is changed. for top app bar, title of the window and other info is to be changed according to the window requirements.
+- Mobile view is given for farmer, desktop view is to be generated keeping similarity with mobile view. and for admin and expert, both desktop and mobile view is to be created keeping consistent theme and app ui structure.
+- In mobile view, top and bottom app bar doesn't get replaced by anything. only the center window view is changed when changing sections. for top app bar, title of the window and other info is to be changed according to the window requirements.
 - In mobile view, app sections are divided into 2 sections: Top and bottom app bar. In desktop view, bottom app bar contents might be shifted to top or left app bar panel.
 - Top app bar has profile section on the right, clicking it will open profile window. Profile window has logout option at the end. Profile picture is not available in the demo. First letter of First name and last name will have to be combined and showed as profile picture. Common profile window contents:
-	1. Profile picture
-	2. Full Name
+	1. Profile picture (at bottom right is a edit button, but clicking it will show "Uploading profile is not available in demo")
 	-------------------
 	(Cards)
+	2. Full Name (at the right is a edit or chevron-right icon for edit first and last name)
 	3. Phone Number
-	4. Location (at the right is a edit icon for edit) (opens location picker)
+	4. Location (at the right is a edit or chevron-right icon for edit) (opens location picker)
 
 Farmer
 -------
@@ -35,6 +37,17 @@ Community section is where a farmer can see other farmers problems or situations
 
 Consult section is where farmer can book for expert's advice. At the top, if an meeting appointment is today, then it's shown on top with necessary details. Rough structure is in /rules/ui/farmer/expert.txt).
 
-Profile section for farmer additionally contains tasks, appointments, posts, costs, crops etc.
+Profile section for farmer additionally contains tasks, appointments, posts, costs, crops etc <Card> widgets which open the respective sections (design for those windows is $generated)
 
+
+Admin
+-----
+Admin contains _ sections.
+	1. Home
+	2. Farmers
+	3. Officers
+	4. Alerts
+	5. Reports
+
+Home section contains new {role} joined in {today/last 7 days/last 30 days} info, total consultations, number of verifications remaining, number of consultation traffic in weekdays summary using plot/graph, recent activities (X has submitted papers (n time ago), new Y farmers joined etc) etc.
 
