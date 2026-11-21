@@ -11,7 +11,9 @@ import { phoneNumberSchema, resetPasswordInputSchema, signInInputSchema, signUpI
 
 const sessionCookie = "kb_session";
 export function demoAuthCodesEnabled(): boolean {
-  return process.env.NODE_ENV !== "production" || process.env.VERCEL_ENV === "preview";
+  return process.env.NODE_ENV !== "production" ||
+    process.env.VERCEL_ENV === "preview" ||
+    process.env.ENABLE_DEMO_AUTH_CODES === "true";
 }
 
 export type AuthUser = { id: string; phoneNumber: string; fullName: string; role: UserRole };
