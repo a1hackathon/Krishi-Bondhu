@@ -6,6 +6,7 @@ import { isSameOriginAction } from "@/server/auth/csrf";
 import { getLocationData } from "@/server/location/queries";
 import { getCurrentUser } from "@/server/auth/service";
 import { updateAccountLocation, updateAccountName } from "@/server/profile";
+import { listPendingOfficers, verifyOfficer, type PendingOfficer } from "@/server/officer-verification";
 import { logger } from "@/server/logger";
 
 export type ProfileActionState = { ok: boolean; message: string };
@@ -20,6 +21,9 @@ const messages = {
     locationInvalid: "Choose a valid location before saving.",
     locationIncomplete: "Choose each location level in order. An area is required when one is available.",
     unavailable: "The service is temporarily unavailable. Please try again shortly.",
+    officerApproved: "Officer verified. They can now sign in.",
+    officerNotFound: "This officer is no longer waiting for verification.",
+    adminOnly: "Only Admin accounts can review officer verification.",
   },
   bn: {
     origin: "অনুরোধটি যাচাই করা যায়নি। পৃষ্ঠাটি রিফ্রেশ করে আবার চেষ্টা করুন।",
@@ -30,6 +34,9 @@ const messages = {
     locationInvalid: "সংরক্ষণের আগে একটি সঠিক ঠিকানা বেছে নিন।",
     locationIncomplete: "ধাপে ধাপে ঠিকানা বেছে নিন। এলাকা থাকলে সেটিও নির্বাচন করতে হবে।",
     unavailable: "সেবাটি সাময়িকভাবে বন্ধ আছে। কিছুক্ষণ পর আবার চেষ্টা করুন।",
+    officerApproved: "কর্মকর্তা যাচাই করা হয়েছে। এখন তিনি সাইন ইন করতে পারবেন।",
+    officerNotFound: "এই কর্মকর্তা আর যাচাইয়ের অপেক্ষায় নেই।",
+    adminOnly: "শুধুমাত্র অ্যাডমিন অ্যাকাউন্ট কর্মকর্তা যাচাই দেখতে পারবে।",
   },
 } as const;
 
@@ -73,6 +80,37 @@ export async function updateProfileNameAction(
     return updated ? { ok: true, message: t.nameSaved } : { ok: false, message: t.profileFailed };
   } catch (error) {
     logger.error("Profile name update failed.", { errorCode: error instanceof Error ? error.name : "unknown" });
+    return { ok: false, message: t.unavailable };
+  }
+}
+
+export async function loadPendingOfficersAction(): Promise<PendingOfficer[]> {
+  const user = await getCurrentUser();
+  if (!user || user.role !== "ADMIN") return [];
+  return listPendingOfficers(user.id);
+}
+
+const officerIdSchema = z.string().uuid();
+
+export async function approveOfficerAction(
+  officerId: unknown,
+  locale: string,
+): Promise<ProfileActionState> {
+  const t = copyFor(locale);
+  if (!(await canMutate())) return { ok: false, message: t.origin };
+  const parsed = officerIdSchema.safeParse(officerId);
+  if (!parsed.success) return { ok: false, message: t.officerNotFound };
+
+  try {
+    const user = await getCurrentUser();
+    if (!user) return { ok: false, message: t.session };
+    if (user.role !== "ADMIN") return { ok: false, message: t.adminOnly };
+    const approved = await verifyOfficer(user.id, parsed.data);
+    return approved
+      ? { ok: true, message: t.officerApproved }
+      : { ok: false, message: t.officerNotFound };
+  } catch (error) {
+    logger.error("Officer verification failed.", { errorCode: error instanceof Error ? error.name : "unknown" });
     return { ok: false, message: t.unavailable };
   }
 }

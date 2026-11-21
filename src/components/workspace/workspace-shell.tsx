@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useCallback, useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { CalendarDays, CheckCircle2, CircleHelp, ClipboardList, House, Leaf, LogOut, MapPin, MessageCircle, MessagesSquare, Pencil, ShieldCheck, Sprout, Users, X } from "lucide-react";
@@ -10,9 +10,10 @@ import { LocationPicker, type LocationSelection } from "@/components/location-pi
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { signOutAction } from "@/app/[locale]/auth-actions";
-import { loadLocationOptionsAction, updateProfileLocationAction, updateProfileNameAction, type ProfileActionState } from "@/app/[locale]/workspace-actions";
+import { approveOfficerAction, loadLocationOptionsAction, loadPendingOfficersAction, updateProfileLocationAction, updateProfileNameAction, type ProfileActionState } from "@/app/[locale]/workspace-actions";
 import type { LocationData } from "@/server/location/types";
 import type { AccountProfile } from "@/server/profile";
+import type { PendingOfficer } from "@/server/officer-verification";
 
 type Section = { id: string; title: string; icon: typeof House };
 type Role = "FARMER" | "OFFICER" | "ADMIN";
@@ -208,6 +209,70 @@ function ProfileDialog({ profile, onClose }: { profile: AccountProfile; onClose:
   );
 }
 
+function OfficerVerificationPanel() {
+  const t = useTranslations("workspace");
+  const locale = useLocale();
+  const [officers, setOfficers] = useState<PendingOfficer[] | null>(null);
+  const [loadFailed, setLoadFailed] = useState(false);
+  const [result, setResult] = useState<ProfileActionState>(initialActionState);
+  const [approvingId, setApprovingId] = useState<string | null>(null);
+  const [, startApproval] = useTransition();
+
+  const fetchOfficers = useCallback(() => loadPendingOfficersAction(), []);
+
+  useEffect(() => {
+    let active = true;
+    fetchOfficers()
+      .then((list) => { if (active) setOfficers(list); })
+      .catch(() => { if (active) setLoadFailed(true); });
+    return () => { active = false; };
+  }, [fetchOfficers]);
+
+  function load() {
+    setLoadFailed(false);
+    fetchOfficers()
+      .then(setOfficers)
+      .catch(() => setLoadFailed(true));
+  }
+
+  function approve(officerId: string) {
+    setApprovingId(officerId);
+    setResult(initialActionState);
+    startApproval(async () => {
+      const outcome = await approveOfficerAction(officerId, locale);
+      setResult(outcome);
+      setApprovingId(null);
+      if (outcome.ok) setOfficers((current) => current?.filter((officer) => officer.id !== officerId) ?? null);
+    });
+  }
+
+  if (loadFailed) return <p role="alert" className="rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">{t("verificationLoadFailed")}</p>;
+  if (officers === null) return <p className="text-sm text-muted-foreground">{t("loading")}</p>;
+
+  return (
+    <div className="space-y-4">
+      <h3 className="font-semibold">{t("pendingOfficers")}</h3>
+      {result.message && <p role="status" className={`rounded-xl px-4 py-3 text-sm ${result.ok ? "bg-success/10 text-success" : "bg-destructive/10 text-destructive"}`}>{result.message}</p>}
+      {officers.length === 0 ? (
+        <p className="text-sm text-muted-foreground">{t("noPendingOfficers")}</p>
+      ) : (
+        <ul className="divide-y divide-border rounded-2xl border border-border">
+          {officers.map((officer) => (
+            <li key={officer.id} className="flex flex-wrap items-center justify-between gap-3 p-4">
+              <div className="min-w-0">
+                <p className="truncate font-medium">{officer.fullName}</p>
+                <p className="text-sm text-muted-foreground">{officer.phoneNumber} · {new Date(officer.createdAt).toLocaleDateString(locale === "bn" ? "bn-BD" : "en-GB")}</p>
+              </div>
+              <Button type="button" disabled={approvingId !== null} onClick={() => approve(officer.id)}>{t("approve")}</Button>
+            </li>
+          ))}
+        </ul>
+      )}
+      <Button type="button" variant="outline" onClick={load} disabled={approvingId !== null}>{t("refresh")}</Button>
+    </div>
+  );
+}
+
 export function WorkspaceShell({ profile }: { profile: AccountProfile }) {
   const t = useTranslations("workspace");
   const locale = useLocale();
@@ -262,7 +327,9 @@ export function WorkspaceShell({ profile }: { profile: AccountProfile }) {
               <section className="rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-9">
                 <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-muted text-primary"><current.icon aria-hidden="true" className="size-6" /></div>
                 <h2 className="text-2xl font-semibold tracking-tight">{t(current.title)}</h2>
-                <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{t("comingSoon")}</p>
+                {role === "ADMIN" && current.id === "officers"
+                  ? <div className="mt-4"><OfficerVerificationPanel /></div>
+                  : <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{t("comingSoon")}</p>}
               </section>
             )}
           </div>
